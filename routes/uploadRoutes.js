@@ -2,10 +2,13 @@
 import express from "express";
 import multer from "multer";
 import userAuth from "../middleware/userAuth.js";
+import fs from "fs";
+import path from "path";
+import { v4 as uuidv4 } from "uuid";
 
 const uploadRouter = express.Router();
 
-// Use in-memory storage (not saved to disk)
+// Use in-memory storage
 const storage = multer.memoryStorage();
 const upload = multer({
   storage,
@@ -15,7 +18,6 @@ const upload = multer({
   },
 });
 
-// Inline controller
 uploadRouter.post(
   "/upload",
   userAuth,
@@ -26,13 +28,20 @@ uploadRouter.post(
         return res.status(400).json({ error: "No file uploaded." });
       }
 
-      const base64 = req.file.buffer.toString("base64");
+      const fileId = uuidv4();
+      const filename = `${fileId}.pdf`;
+      const filePath = `/tmp/${filename}`;
+
+      // Write buffer to disk
+      fs.writeFileSync(filePath, req.file.buffer);
+
+      // Return accessible path
       res.json({
-        dataUri: `data:application/pdf;base64,${base64}`,
+        filePath: `/signed/${filename}`, // This will be served by Express
       });
     } catch (err) {
       console.error("Upload error:", err);
-      res.status(500).json({ error: "Failed to upload and convert PDF." });
+      res.status(500).json({ error: "Failed to upload PDF." });
     }
   }
 );

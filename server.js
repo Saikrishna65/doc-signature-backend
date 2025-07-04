@@ -9,6 +9,7 @@ import userRouter from "./routes/userRoutes.js";
 import uploadRouter from "./routes/uploadRoutes.js";
 import signPdfRouter from "./routes/signPdfRoutes.js";
 import path from "path";
+import fs from "fs";
 
 dotenv.config();
 
@@ -39,9 +40,20 @@ app.use(cookieParser());
 app.get("/", (req, res) => res.send("API Working"));
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
-// app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/api", uploadRouter);
 app.use("/api/sign-pdf", signPdfRouter);
+
+// ✅ Serve temporary signed PDFs from /tmp
+app.get("/signed/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join("/tmp", filename);
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send("File not found");
+  }
+
+  res.sendFile(filePath);
+});
 
 // Start server
 const PORT = process.env.PORT || 4000;
