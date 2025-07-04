@@ -1,33 +1,28 @@
 {
-  "name": "doc-signature-backend",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "nodemon": "server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Saikrishna65/doc-signature-backend.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/Saikrishna65/doc-signature-backend/issues"
-  },
-  "homepage": "https://github.com/Saikrishna65/doc-signature-backend#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.0",
+    "mongoose": "^8.12.1",
     "multer": "^2.0.1",
-    "pdf-lib": "^1.17.1"
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^7.0.3",
+    "pdf-lib": "^1.17.1",
+    "socket.io": "^4.8.1"
   }
 }
