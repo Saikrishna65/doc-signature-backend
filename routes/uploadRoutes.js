@@ -35,10 +35,11 @@ uploadRouter.post(
       // Write buffer to disk
       fs.writeFileSync(filePath, req.file.buffer);
 
-      // Return accessible path
-      console.log("Generated file path:", `/signed/${filename}`);
+      // 🛠️ Construct full URL dynamically
+      const fullUrl = `${req.protocol}://${req.get("host")}/signed/${filename}`;
+
       res.json({
-        filePath: `/signed/${filename}`, // This will be served by Express
+        filePath: fullUrl,
       });
     } catch (err) {
       console.error("Upload error:", err);
