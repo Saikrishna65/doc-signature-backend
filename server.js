@@ -35,6 +35,8 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 
+app.set("trust proxy", true);
+
 // ✅ Serve signed PDFs
 app.use("/signed", express.static("/tmp"));
 

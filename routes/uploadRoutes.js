@@ -1,4 +1,3 @@
-// backend/routes/uploadRoutes.js
 import express from "express";
 import multer from "multer";
 import userAuth from "../middleware/userAuth.js";
@@ -32,12 +31,13 @@ uploadRouter.post(
       const filename = `${fileId}.pdf`;
       const filePath = `/tmp/${filename}`;
 
-      // Write buffer to disk
+      // Write buffer to /tmp directory
       fs.writeFileSync(filePath, req.file.buffer);
 
-      // 🛠️ Construct full URL dynamically
+      // ✅ Generate full URL based on request
       const fullUrl = `${req.protocol}://${req.get("host")}/signed/${filename}`;
 
+      // Respond with the full file URL
       res.json({
         filePath: fullUrl,
       });
