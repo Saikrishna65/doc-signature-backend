@@ -36,6 +36,7 @@ uploadRouter.post(
       fs.writeFileSync(filePath, req.file.buffer);
 
       // Return accessible path
+      console.log("Generated file path:", `/signed/${filename}`);
       res.json({
         filePath: `/signed/${filename}`, // This will be served by Express
       });
