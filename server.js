@@ -15,7 +15,10 @@ dotenv.config();
 const app = express();
 
 // Allowed frontend origins
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://doc-signature-frontend.onrender.com",
+];
 
 // CORS options
 const corsOptions = {
