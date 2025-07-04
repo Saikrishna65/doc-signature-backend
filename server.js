@@ -31,14 +31,15 @@ connectDB();
 
 // Middleware
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 
 // Routes
 app.get("/", (req, res) => res.send("API Working"));
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+// app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/api", uploadRouter);
 app.use("/api/sign-pdf", signPdfRouter);
 
